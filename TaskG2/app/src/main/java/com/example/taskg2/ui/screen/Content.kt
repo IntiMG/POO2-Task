@@ -29,11 +29,11 @@ fun Content (tab: Int) {
     val scope = rememberCoroutineScope()
     var loading by remember { mutableStateOf(false) }
     var tasks by remember { mutableStateOf(listOf(
-        Task("Estudiar compose", false),
-        Task("Estudiar fisica", false),
-        Task("Estudiar finanzas", false),
-        Task("Hacer el proyecto de POO", false),
-        Task("Hacer el examen de android", false)
+        Task("Estudiar compose", false, 1),
+        Task("Estudiar fisica", false, 2),
+        Task("Estudiar finanzas", false, 3),
+        Task("Hacer el proyecto de POO", false, 4),
+        Task("Hacer el examen de android", false, 5)
     )) }
     val grouped = tasks.groupBy { it.completed }
     Column(
@@ -44,7 +44,7 @@ fun Content (tab: Int) {
                 scope.launch {
                     loading = true
                     delay(3000)
-                    tasks = tasks.shuffled()
+                    tasks = tasks.sortedBy { it.prority }
                     loading = false
                 }
             },
